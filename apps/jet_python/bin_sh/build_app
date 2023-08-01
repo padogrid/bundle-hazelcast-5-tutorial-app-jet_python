@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+. $SCRIPT_DIR/.addonenv.sh
+
+EXECUTABLE="`basename $0`"
+
+if [ "$HELP" == "true" ]; then
+cat <<EOF
+
+NAME
+   $EXECUTABLE - Build job jar
+
+SYNOPSIS
+   $EXECUTABLE [-?]
+
+DEFAULT
+   $EXECUTABLE
+
+EOF
+   exit
+fi
+
+pushd $APP_DIR > /dev/null
+mvn install
+popd > /dev/null
+
+#
+# Display build information
+#
+cat <<EOF
+
+Workspace: $PADOGRID_WORKSPACE
+
+Build complete.
+
+EOF
