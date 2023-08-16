@@ -67,6 +67,7 @@ make_cluster -product hazelcast
 If you will be debugging Python code, setup your Python environment with the provided `requirements.txt` file. Make sure your Python version is 3.5+.
 
 ```bash
+cd_app jet_python
 pip install -r requirements.txt
 ```
 
@@ -137,7 +138,7 @@ jet_python
 
 ---
 
-## Monitoring Java and Python processes
+## Monitoring Java and Python Processes
 
 Use `top` to monitor `java` and `python` processes as follows.
 
@@ -145,7 +146,7 @@ Use `top` to monitor `java` and `python` processes as follows.
 top -pid $(pgrep -d " " "java|python" |sed "s/ / -pid /g")
 ```
 
-## Setting up the job submission environment
+## Setting Up the Job Submission Environment
 
 1. Create a directory where you will keep code. Let's call it the job directory.
 1. From the job directory:
@@ -172,7 +173,7 @@ hz-cli -t dev@localhost:5701 submit target/tutorial-python-1.0-SNAPSHOT.jar
 
 ---
 
-## Debugging Job invoking Python functions
+## Debugging Jobs that Invoke Python Functions
 
 This section walks through the steps involved in submitting  a Jet job that applies a Python function.
 
@@ -203,7 +204,7 @@ Output:
  501 71958 71662   0  1:04PM ttys008    0:10.18 python3 jet_to_python_grpc_server.py 61624 take_sqrt transform_list
 ```            
 
-4. Using the `grpc` server PID, find the member that is connected to it.
+4. Using the `grpc` server PPID (parent PID), find the member (parent) that has started and is connected to it.
 
 ```bash
 ps -ef | grep 71662 | grep -v grep
@@ -212,11 +213,11 @@ ps -ef | grep 71662 | grep -v grep
 Output:
 
 ```console
-  501 71662     1   0  1:03PM ttys008    1:12.40 /Library/Java/JavaVirtualMachines/jdk-17.0.3.1.jdk/Contents/Home/bin/java -server -Dpado.vm.id=myhz-padomac.local-02 -Dhazelcast.instance.name=myhz-padomac.local-02 -Dpadogrid.workspace=bundle-hazelcast-5-app-ml_lstm-cluster-ml_jet -Dpadogrid.rwe=rwe-bundles -Dhazelcast.config=/Users/dpark/Padogrid/workspaces/rwe-bundles/bundle-hazelcast-5-app-ml_lstm-cluster-ml_jet/clusters/myhz/etc/hazelcast.xml -Djet.custom.lib.dir=/Users/dpark/Padogrid/products/hazelcast-enterprise-5.3.1/custom-lib -Dhazelcast-addon.cluster-name=myhz -Dhazelcast-addon.group=myhz -Dhazelcast-addon.tcp.port=5702 -Dhazelcast-addon.tcp.members=padomac.local:5701,padomac.local:5702,padomac.local:5703,padomac.local:5704,padomac.local:5705,padomac.local:5706,padomac.local:5707,padomac.local:5708,padomac.local:5709,padomac.local:5710,padomac.local:5711,padomac.local:5712,padomac.local:5713,padomac.local:5714,padomac.local:5715,padomac.local:5716,padomac.local:5717,padomac.local:5718,padomac.local:5719,padomac.local:5720 -Dhazelcast-addon.management-center=http://localhost:8080/hazelcast-mancenter -Dhazelcast.logging.type=log4j2 -Dlog4j.configurationFile=/Users/dpark/Padogrid/workspaces/rwe-bundles/bundle-hazelcast-5-app-ml_lstm-cluster-ml_jet/clusters/myhz/etc/log4j2.properties -Dhazelcast.shutdownhook.enabled=true -Dhazelcast.shutdownhook.policy=GRACEFUL -Dcom.sun.management.jmxremote.port=12202 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dhazelcast.jmx=true -Xms1g -Xmx1g -Dhazelcast.enterprise.license.key=PLATFORM#50Nodes#wEuDqKGOjY86B2XNPnfSgU0iW5Hm1QJZTMb9kClyAd42000111010011010021905911910010019111003125 -Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9402 -javaagent:/Users/dpark/Padogrid/products/padogrid_0.9.27-SNAPSHOT/lib/jmx_prometheus_javaagent-0.17.2.jar=8292:/Users/dpark/Padogrid/workspaces/rwe-bundles/bundle-hazelcast-5-app-ml_lstm-cluster-ml_jet/clusters/myhz/etc/prometheus.yml --add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED com.hazelcast.core.server.HazelcastMemberStarter
+  501 71662     1   0  1:03PM ttys008    1:12.40 /Library/Java/JavaVirtualMachines/jdk-17.0.3.1.jdk/Contents/Home/bin/java -server -Dpado.vm.id=myhz-padomac.local-02 -Dhazelcast.instance.name=myhz-padomac.local-02 -Dpadogrid.workspace=bundle-hazelcast-5-app-ml_lstm-cluster-ml_jet -Dpadogrid.rwe=rwe-bundles -Dhazelcast.config=/Users/dpark/Padogrid/workspaces/rwe-bundles/bundle-hazelcast-5-app-ml_lstm-cluster-ml_jet/clusters/myhz/etc/hazelcast.xml -Djet.custom.lib.dir=/Users/dpark/Padogrid/products/hazelcast-enterprise-5.3.1/custom-lib -Dhazelcast-addon.cluster-name=myhz -Dhazelcast-addon.group=myhz -Dhazelcast-addon.tcp.port=5702 -Dhazelcast-addon.tcp.members=padomac.local:5701,padomac.local:5702,padomac.local:5703,padomac.local:5704,padomac.local:5705,padomac.local:5706,padomac.local:5707,padomac.local:5708,padomac.local:5709,padomac.local:5710,padomac.local:5711,padomac.local:5712,padomac.local:5713,padomac.local:5714,padomac.local:5715,padomac.local:5716,padomac.local:5717,padomac.local:5718,padomac.local:5719,padomac.local:5720 -Dhazelcast-addon.management-center=http://localhost:8080/hazelcast-mancenter -Dhazelcast.logging.type=log4j2 -Dlog4j.configurationFile=/Users/dpark/Padogrid/workspaces/rwe-bundles/bundle-hazelcast-5-app-ml_lstm-cluster-ml_jet/clusters/myhz/etc/log4j2.properties -Dhazelcast.shutdownhook.enabled=true -Dhazelcast.shutdownhook.policy=GRACEFUL -Dcom.sun.management.jmxremote.port=12202 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dhazelcast.jmx=true -Xms1g -Xmx1g -Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9402 -javaagent:/Users/dpark/Padogrid/products/padogrid_0.9.27-SNAPSHOT/lib/jmx_prometheus_javaagent-0.17.2.jar=8292:/Users/dpark/Padogrid/workspaces/rwe-bundles/bundle-hazelcast-5-app-ml_lstm-cluster-ml_jet/clusters/myhz/etc/prometheus.yml --add-modules java.se --add-exports java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management/sun.management=ALL-UNNAMED --add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED com.hazelcast.core.server.HazelcastMemberStarter
   501 71958 71662   0  1:04PM ttys008    0:12.32 python3 jet_to_python_grpc_server.py 61624 take_sqrt transform_list
 ```
 
-From the output, we see that `jet_to_python_grpc_server.py` provides a `grpc` service for communicating between the member #2 (`myhz-padomac.local-02`) and the Python `take_sqrt` function.
+From the output, we see that `jet_to_python_grpc_server.py` provides a `grpc` service for invoking the Python `take_sqrt` function by Member #2 (`myhz-padomac.local-02`).
 
 5. List jobs
 
@@ -287,7 +288,7 @@ com.hazelcast.jet.impl.exception.CancellationByUserException: null
 
 ---
 
-## Python Deployed by Hazelcast
+## Finding Python Code when the Job Fails to Start
 
 When a job is submitted, Hazelcast uploads Python code to each member's temporary directory. If Hazelcast encounters a problem while deploying a job, it will periodically retry the deployment. In that case, you can find the temporay directory path, by executing `ps` as follows.
 
@@ -328,6 +329,32 @@ Output:
 ```
 
 Hazelcast deploys the above scripts and your Python code to each member for each job you submit. You can browse the scripts to see how Hazelcast starts the `grpc` service.
+
+## Finding Python Code when the Job Successfully Starts
+
+The previous section showed how to find the temporary directory where the job is deployed in case when the job is struggling to start. If the job starts properly, then you may not be able to capture the `clang` instances in time before they complete. In that case, you can simply dump the working directory path in the Python code as follows.
+
+```python
+import os
+import logging
+
+# For our example, we place the log file in the PadoGrid workspace.
+
+# PADOGRID_WORKSPACE is the directory path of the PadoGrid workspace where
+# you submit the job. 
+workspace_dir = os.environ['PADOGRID_WORKSPACE']
+
+# Your application directory path. Let's set it to this bundle's app directory.
+app_dir = workspace_dir + "/apps/jet_python"
+
+# Create logger
+logger = logging.getLogger('jet_python')
+ch = logging.FileHandler(filename=app_dir + '/log/jet_python.log', encoding='utf-8')
+logger.addHandler(ch)
+
+# Log working directory.
+logger.info(f'Python working directory: {os.getcwd()}')
+```
 
 ---
 
