@@ -142,8 +142,16 @@ jet_python
 
 Use `top` to monitor `java` and `python` processes as follows.
 
+macOS:
+
 ```bash
 top -pid $(pgrep -d " " "java|python" |sed "s/ / -pid /g")
+```
+
+Linux:
+
+```bash
+top -p $(pgrep -d " " "java|python" |sed "s/ / -p /g")
 ```
 
 ## Setting Up the Job Submission Environment
