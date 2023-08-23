@@ -524,6 +524,20 @@ static class MySinks {
 
 ---
 
+## Teardown
+
+```bash
+# Cancel the running job. Hit <tab> after 'cancel' to get the job ID.
+hz-cli -t dev@localhost:5701 cancel 0a2d-4eda-98c0-0001
+
+# Stop the cluster
+stop_cluster -all
+```
+
+---
+
+---
+
 ## References
 
 1. Python debugging in VS Code, <https://code.visualstudio.com/docs/python/debugging>
