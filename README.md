@@ -536,8 +536,6 @@ stop_cluster -all
 
 ---
 
----
-
 ## References
 
 1. Python debugging in VS Code, <https://code.visualstudio.com/docs/python/debugging>
