@@ -62,7 +62,7 @@ cd_app jet_python/bin_sh
 The default cluster, `myhz`, is assumed throughout this tutorial.
 
 ```bash
-make_cluster -product hazelcast
+create_cluster -product hazelcast
 ```
 
 3. Setup Python Environment
